@@ -1,1 +1,106 @@
-<p>list-demande works!</p>
+<!-- Contenu principal -->
+<div class="container-fluid py-4 px-4">
+    
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-list-ul"></i> Mes Demandes de RV</h2>
+        <button class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nouvelle Demande
+        </button>
+    </div>
+
+    <!-- Filtres -->
+    <div class="card border-start border-primary border-4 mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5 mb-3 mb-md-0">
+                    <label class="form-label fw-bold">Filtrer par statut</label>
+                    <select class="form-select">
+                        <option selected>Tous les statuts</option>
+                        <option>En attente</option>
+                        <option>Acceptée</option>
+                        <option>Refusée</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Filtrer par spécialité</label>
+                    <select class="form-select">
+                        <option selected>Toutes les spécialités</option>
+                        <option>Cardiologue</option>
+                        <option>Médecin Généraliste</option>
+                        <option>Dermatologue</option>
+                        <option>Oculiste</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="card border-start border-primary border-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Spécialité</th>
+                            <th><i class="bi bi-calendar"></i> Date Demandée</th>
+                            <th><i class="bi bi-clock"></i> Heure</th>
+                            <th><i class="bi bi-info-circle"></i> Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cardiologue</td>
+                            <td>25/01/2026</td>
+                            <td>14:30</td>
+                            <td><span class="badge badge-warning"><i class="bi bi-clock"></i> En attente</span></td>
+                            <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Voir</button></td>
+                        </tr>
+                        <tr>
+                            <td>Médecin Généraliste</td>
+                            <td>22/01/2026</td>
+                            <td>10:00</td>
+                            <td><span class="badge badge-success"><i class="bi bi-check-circle"></i> Acceptée</span></td>
+                            <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Voir</button></td>
+                        </tr>
+                        <tr>
+                            <td>Dermatologue</td>
+                            <td>28/01/2026</td>
+                            <td>16:00</td>
+                            <td><span class="badge badge-warning"><i class="bi bi-clock"></i> En attente</span></td>
+                            <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Voir</button></td>
+                        </tr>
+                        <tr>
+                            <td>Oculiste</td>
+                            <td>20/01/2026</td>
+                            <td>09:30</td>
+                            <td><span class="badge badge-danger"><i class="bi bi-x-circle"></i> Refusée</span></td>
+                            <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Voir</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link page-link-nav">Précédent</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link page-link-number">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link page-link-number">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link page-link-nav">Suivant</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>

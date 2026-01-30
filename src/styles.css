@@ -140,3 +140,105 @@ body {
     border: none;
     color: #0d6efd;
 }
+
+
+
+
+
+
+/* Tableau */
+.table th {
+    font-weight: 600;
+    color: #6c757d;
+    border-bottom: 2px solid #dee2e6;
+    padding: 15px;
+}
+
+.table td {
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Badges statut - arrondis sans bordure */
+.badge-warning {
+    background-color: #ffc107;
+    color: #000;
+    padding: 8px 15px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+}
+
+.badge-success {
+    background-color: #198754;
+    color: #fff;
+    padding: 8px 15px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 8px 15px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Bouton Voir */
+.btn-outline-primary {
+    border-color: #dee2e6;
+    color: #0d6efd;
+    border-radius: 5px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+/* Pagination */
+.pagination {
+    gap: 5px;
+    align-items: center;
+}
+
+.pagination .page-item .page-link {
+    border: none;
+    background-color: transparent;
+    color: #0d6efd;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 14px;
+}
+
+/* Filtres */
+.form-select {
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+/* Cards avec barre latérale */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.border-4 {
+    border-width: 4px !important;
+}
