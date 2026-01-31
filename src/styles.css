@@ -242,3 +242,128 @@ body {
 .border-4 {
     border-width: 4px !important;
 }
+
+
+
+
+/* Login Page */
+.login-container {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-icon {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(13, 110, 253, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.login-icon i {
+    font-size: 2.5rem;
+    color: #0d6efd;
+}
+
+.welcome-text {
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.system-title {
+    color: #0d6efd;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.login-title {
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.login-card .form-label {
+    text-align: left;
+    display: block;
+    font-weight: 500;
+    color: #495057;
+}
+
+.login-card .form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+}
+
+.login-card .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.forgot-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.forgot-link:hover {
+    color: #0d6efd;
+}
+
+.login-card .btn-primary {
+    padding: 12px;
+    font-weight: 500;
+    border-radius: 8px;
+}
+
+.register-text {
+    margin-top: 20px;
+    color: #6c757d;
+}
+
+.register-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+
+
+
+.login-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-left: 4px solid #0d6efd;
+}
+
+.badge {
+    cursor: pointer;
+}
