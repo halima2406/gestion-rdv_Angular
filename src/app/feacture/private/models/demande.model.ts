@@ -1,4 +1,4 @@
-export enum StatutDemande {
+/*export enum StatutDemande {
     EN_ATTENTE = 'En Attente',
     ACCEPTEE = 'Acceptée',
     REFUSEE = 'Refusée'
@@ -12,7 +12,24 @@ export enum SpecialiteMedicale {
     PEDIATRIE = 'Pédiatrie',
     ORTHOPEDIE = 'Orthopédie',
     GYNECOLOGIE = 'Gynécologie'
- }
+ }*/
+
+import { Interface } from "readline";
+
+
+export type SpecialiteMedicale =
+    | 'Cardiologie'         
+    | 'Dermatologie'        
+    | 'Neurologie'          
+    | 'Pédiatrie'           
+    | 'Orthopédie'          
+    | 'Gynécologie';
+
+export type StatutDemande =     
+    | 'En Attente'     
+    | 'Acceptée'         
+    | 'Refusée';
+
 
 export interface DemandeListRV {
     id: number;
@@ -21,3 +38,12 @@ export interface DemandeListRV {
     heure: string;
     specialite: SpecialiteMedicale;
   }
+
+
+
+export interface DemandeRVFilterModel {
+    
+    statut?: StatutDemande;
+    specialite?: SpecialiteMedicale | '';
+
+}
