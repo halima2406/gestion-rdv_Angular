@@ -6,6 +6,7 @@ import { PatientComponent } from './feacture/public/patient/patient.component';
 import { LoginComponent } from './feacture/public/login/login.component';
 import { PublicComponent } from './feacture/public/public.component';
 import { PrivateComponent } from './feacture/private/private.component';
+import { isConnectGuard } from './core/guards/is-connect.guard';
 
 export const routes: Routes = [
 
@@ -13,6 +14,8 @@ export const routes: Routes = [
     {
         path: 'private',
         component:PrivateComponent,
+        canActivate:[isConnectGuard],
+        canActivateChild:[isConnectGuard],
         children:[
             {
                 path:'',

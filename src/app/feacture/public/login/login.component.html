@@ -15,15 +15,16 @@
         <h2 class="login-title">Se connecter</h2>
 
         <!-- Formulaire -->
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+
             <div class="mb-3">
                 <label class="form-label">Login</label>
-                <input type="text" class="form-control" placeholder="Email ou nom d'utilisateur">
+                <input type="text" class="form-control" placeholder="Email ou nom d'utilisateur" [(ngModel)]="userLogin.email" name="userLogin">
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" placeholder="Mot de passe">
+                <input type="password" class="form-control" placeholder="Mot de passe" [(ngModel)]="userLogin.password" name="userLogin">
             </div>
 
             <div class="text-end mb-3">
@@ -39,3 +40,4 @@
         </p>
     </div>
 </div>
+
