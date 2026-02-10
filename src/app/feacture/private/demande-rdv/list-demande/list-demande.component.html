@@ -23,14 +23,14 @@
                         <option  value="Acceptée">Acceptée</option>
                         <option  value="Refusée">Refusée</option>
                     </select>
-                    {{filterDemandes.statut}}
+                    
                     
                 </div>
                 <div class="col-md-5">
                     <label class="form-label fw-bold">Filtrer par spécialité</label>
                     <select class="form-select" id="statutFilter" 
                     [(ngModel)]="filterDemandes.specialite"
-                    (change)="onFilterStatutChange()">
+                    (change)="onFilterSpecialiteChange()">
                         <option value="">Toutes les spécialités</option>
                         <option value="Cardiologie">Cardiologue</option>
                         <option value="Dermatologie">Dermatologue</option>
@@ -40,7 +40,7 @@
                         <option value="Gynécologie">Gynécologue</option>
                         
                     </select>
-                    {{filterDemandes.specialite}}
+                   
 
                 </div>
             </div>
@@ -50,72 +50,87 @@
     <!-- Tableau -->
     <div class="card border-start border-primary border-4">
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Spécialité</th>
-                            <th><i class="bi bi-calendar"></i> Date Demandée</th>
-                            <th><i class="bi bi-clock"></i> Heure</th>
-                            <th><i class="bi bi-info-circle"></i> Statut</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+            @if ((demandesResponse?.data && demandesResponse?.data?.length! > 0) ) {
 
-                    <tbody>
-                        @for($demandes of demandes; track $demandes.id) {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <td>{{ $demandes.specialite }}</td>
-                                <td>{{ $demandes.dateDemande }}</td>
-                                <td>{{ $demandes.heure }}</td>
-                               <td>
-                                    <span class="badge" 
-                                        [ngClass]="{
-                                            'badge-warning': $demandes.statut === 'En Attente',
-                                            'badge-success': $demandes.statut === 'Acceptée',
-                                            'badge-danger': $demandes.statut === 'Refusée'
-                                        }">
-                                        <i class="bi" 
+                                <th>Spécialité</th>
+                                <th><i class="bi bi-calendar"></i> Date Demandée</th>
+                                <th><i class="bi bi-clock"></i> Heure</th>
+                                <th><i class="bi bi-info-circle"></i> Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                            @for($demandes of demandesResponse?.data; track $demandes.id) {
+                                <tr>
+                                    <td>{{ $demandes.specialite }}</td>
+                                    <td>{{ $demandes.dateDemande }}</td>
+                                    <td>{{ $demandes.heure }}</td>
+                                   <td>
+                                        <span class="badge" 
                                             [ngClass]="{
-                                                'bi-clock': $demandes.statut === 'En Attente',
-                                                'bi-check-circle': $demandes.statut === 'Acceptée',
-                                                'bi-x-circle': $demandes.statut === 'Refusée'
-                                            }"></i>
-                                        {{ $demandes.statut }}
-                                    </span>
-                                </td>
-                                <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Voir</button></td>
-                            </tr>
-                        } @empty {
-                            <tr>
-                                <td colspan="5" class="text-center text-muted py-4">
-                                    <i class="bi bi-inbox"></i> Aucune demande de rendez-vous trouvée.
-                                </td>
-                            </tr>
+                                                'badge-warning': $demandes.statut === 'En Attente',
+                                                'badge-success': $demandes.statut === 'Acceptée',
+                                                'badge-danger': $demandes.statut === 'Refusée'
+                                            }">
+                                            <i class="bi" 
+                                                [ngClass]="{
+                                                    'bi-clock': $demandes.statut === 'En Attente',
+                                                    'bi-check-circle': $demandes.statut === 'Acceptée',
+                                                    'bi-x-circle': $demandes.statut === 'Refusée'
+                                                }"></i>
+                                            {{ $demandes.statut }}
+                                        </span>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Voir</button></td>
+                                </tr>
+                            } @empty {
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        <i class="bi bi-inbox"></i> Aucune demande de rendez-vous trouvée.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        
+                    </table>
+                </div>
+
+
+                 <!-- Pagination -->
+                <nav class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="desactivePrecedent()">
+                            <a class="page-link page-link-nav" (click)="!desactivePrecedent() && onPaginate(demandesResponse!.currentPage - 1)">Précédent</a>
+                        </li>
+                       
+                        @for (indexPage of demandesResponse?.pages; track indexPage) {
+                            <li class="page-item" [class.active]="indexPage === demandesResponse?.currentPage">
+                                <a class="page-link" (click)="onPaginate(indexPage); $event.preventDefault()" href="#">{{ indexPage }}</a>
+                            </li>
                         }
-                    </tbody>
-                    
-                </table>
-            </div>
+                       
+                        <li class="page-item" [class.disabled]="desactiveSuivant()">
+                            <a class="page-link page-link-nav" (click)="!desactiveSuivant() && onPaginate(demandesResponse!.currentPage + 1)">Suivant</a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+               
+
+            }@else {
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-inbox"></i> Aucune demande de rendez-vous trouvée.
+                </div>
+            }
+            
         </div>
     </div>
 
-    <!-- Pagination -->
-    <nav class="d-flex justify-content-center mt-4">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link page-link-nav">Précédent</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link page-link-number">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link page-link-number">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link page-link-nav">Suivant</a>
-            </li>
-        </ul>
-    </nav>
+   
 
 </div>

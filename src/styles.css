@@ -367,3 +367,10 @@ body {
 .badge {
     cursor: pointer;
 }
+
+.page-item.disabled .page-link {
+    color: #ccc;
+    background-color: #f0f0f0;
+    pointer-events: none;
+    cursor: not-allowed;
+  }

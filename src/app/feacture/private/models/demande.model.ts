@@ -45,5 +45,17 @@ export interface DemandeRVFilterModel {
     
     statut?: StatutDemande;
     specialite?: SpecialiteMedicale | '';
+    page?: number;
+    size?:  number;
 
+}
+
+
+export interface DemandeListRVResponseModel {
+  data: DemandeListRV[];
+  totalPages: number;
+  currentPage: number;
+  totalItems: number;
+  pages: number[];
+  size: number;
 }

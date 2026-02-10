@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DemandeListRV, DemandeRVFilterModel, SpecialiteMedicale, StatutDemande } from '../../models/demande.model';
+import { DemandeListRV, DemandeListRVResponseModel, DemandeRVFilterModel, SpecialiteMedicale, StatutDemande } from '../../models/demande.model';
 import { CommonModule } from '@angular/common';
 import { MOCK_DEMANDES } from '../../../../mocks/demande.mocks';
 import { DemandeService } from '../service/demande.service';
@@ -16,7 +16,8 @@ import { FormsModule, NgModel } from '@angular/forms';
 export class ListDemandeComponent implements OnInit {
 
 
-  demandes:DemandeListRV[]=[];
+  //demandesResponse:undefined;
+  demandesResponse?:DemandeListRVResponseModel;
   filterDemandes: DemandeRVFilterModel = {
     specialite : '',
     statut: 'En Attente',
@@ -28,12 +29,39 @@ export class ListDemandeComponent implements OnInit {
    
   }
 
+  ngOnDestroy(): void {
+  if (typeof window !== 'undefined') {
+    alert("ListDemandeComponent détruit");
+  }
+}
+
   ngOnInit(): void {
-    this.demandes=this.demandeServive.getDemandeRV(this.filterDemandes);
+    this.LoadDemandes();
+  }
+
+  private LoadDemandes(){
+    this.demandesResponse=this.demandeServive.getDemandeRV(this.filterDemandes);
   }
 
   onFilterStatutChange(){
-    this.demandes=this.demandeServive.getDemandeRV(this.filterDemandes);
+    this.LoadDemandes();
+  }
+
+  onFilterSpecialiteChange(){
+    this.LoadDemandes();
+  }
+
+  onPaginate(page:number){
+    this.filterDemandes.page=page;
+    this.LoadDemandes();
+  }
+
+  desactivePrecedent():boolean{
+    return !(this.demandesResponse!=undefined && this.demandesResponse.currentPage > 1);
+  }
+
+  desactiveSuivant():boolean{
+    return !(this.demandesResponse!=undefined && this.demandesResponse.currentPage < (this.demandesResponse.totalPages || 0));
   }
 
   

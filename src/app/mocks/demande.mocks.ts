@@ -35,5 +35,12 @@ export const MOCK_DEMANDES : DemandeListRV[]= [
       heure: '09:30',
       statut: 'Refusée',
       specialite: 'Neurologie'
+    },
+    {
+      id: 6,
+      dateDemande: '2024-07-01',
+      heure: '10:00',
+      statut: 'En Attente',
+      specialite: 'Cardiologie'
     }
   ];
