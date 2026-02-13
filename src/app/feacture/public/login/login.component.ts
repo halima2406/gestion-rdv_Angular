@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { SecurityService } from '../../../core/services/security.service';
 import { UserLoginRequest } from '../../../core/models/user.model';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +15,23 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   userLogin : UserLoginRequest = {
-    email:"halima@gmail.com",
+    email:"",
     password:""
   };
+
+  errorMessage : string = ""; 
 
   constructor(private securityService: SecurityService, private router : Router ) { }
   
 
-  onLogin(){
+  onLogin(formCtrl:NgForm):void{
 
     //alert("Login attemptes" + JSON.stringify(this.userLogin));
+
+    if(formCtrl.invalid){
+      this.errorMessage = "Veuillez remplir correctement le formulaire.";
+      return;
+    }
 
 
     const LoginResult=this.securityService.login(this.userLogin);
@@ -33,6 +41,11 @@ export class LoginComponent {
     }else{
       console.log("Login échoué: Email ou mot de passe incorrect");
     }
+  }
+
+  isFieldInvalid(fieldName:string,formCtrl:NgForm):boolean{
+    const fieldCtrl = formCtrl?.controls[fieldName];
+    return !!(fieldCtrl && fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched));
   }
 
 }

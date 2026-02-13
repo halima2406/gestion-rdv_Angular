@@ -1,93 +1,118 @@
-<!-- Contenu principal -->
-<div class="container-fluid py-4 px-4">
-    
-    <!-- Titre -->
-    <h2 class="mb-4"><i class="bi bi-person-plus"></i> Créer un Nouveau Patient</h2>
-
+<div class="container-fluid py-4">
     <div class="row">
-        <!-- Formulaire -->
-        <div class="col-lg-8 mb-4">
-            <div class="card border-start border-primary border-4">
+        <div class="col-md-8">
+            <h1 class="mb-4"><i class="bi bi-person-plus"></i> Créer un Nouveau Patient</h1>
+
+            <div class="card border-0 shadow-sm">
                 <div class="card-body p-4">
-                    
-                    <!-- Ligne 1: Numéro Patient et Nom -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <label class="form-label"><i class="bi bi-hash"></i> Numéro Patient</label>
-                            <input type="text" class="form-control" placeholder="PAT-001">
+                    <form id="patientForm" [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+
+                        @if(submitted) {
+                            <div class="alert alert-success mb-3">
+                                Patient créé avec succès !
+                            </div>
+                        }
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="numero" class="form-label"><i class="bi bi-hash"></i> Numéro Patient</label>
+                                <input type="text" class="form-control" id="numero" placeholder="PAT-001"
+                                    formControlName="numero"
+                                    [ngClass]="{'is-invalid': isFieldInvalid('numero'), 'is-valid': isFieldValid('numero')}">
+                                @if(isFieldInvalid('numero')) {
+                                    @if (f['numero']?.errors?.['required']) {
+                                        <div class="text-danger small mt-1">Le numéro patient est requis.</div>
+                                    }
+                                    @if (f['numero']?.errors?.['minlength']) {
+                                        <div class="text-danger small mt-1">Le numéro patient doit contenir au moins 5 caractères.</div>
+                                    }
+                                }
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nom" class="form-label"><i class="bi bi-person"></i> Nom</label>
+                                <input type="text" class="form-control" id="nom" placeholder="Dupont"
+                                    formControlName="nom"
+                                    [ngClass]="{'is-invalid': isFieldInvalid('nom'), 'is-valid': isFieldValid('nom')}">
+                                @if(isFieldInvalid('nom')) {
+                                    @if (f['nom']?.errors?.['required']) {
+                                        <div class="text-danger small mt-1">Le nom est requis.</div>
+                                    }
+                                }
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="bi bi-person"></i> Nom</label>
-                            <input type="text" class="form-control" placeholder="Dupont">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="prenom" class="form-label"><i class="bi bi-person"></i> Prénom</label>
+                                <input type="text" class="form-control" id="prenom" placeholder="Jean"
+                                    formControlName="prenom"
+                                    [ngClass]="{'is-invalid': isFieldInvalid('prenom'), 'is-valid': isFieldValid('prenom')}">
+                                @if(isFieldInvalid('prenom')) {
+                                    @if (f['prenom']?.errors?.['required']) {
+                                        <div class="text-danger small mt-1">Le prénom est requis.</div>
+                                    }
+                                }
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tel" class="form-label"><i class="bi bi-telephone"></i> Téléphone</label>
+                                <input type="tel" class="form-control" id="tel" placeholder="+221 77 123 45 67"
+                                    formControlName="telephone"
+                                    [ngClass]="{'is-invalid': isFieldInvalid('telephone'), 'is-valid': isFieldValid('telephone')}">
+                                @if(isFieldInvalid('telephone')) {
+                                    @if (f['telephone']?.errors?.['required']) {
+                                        <div class="text-danger small mt-1">Le téléphone est requis.</div>
+                                    }
+                                }
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Ligne 2: Prénom et Téléphone -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <label class="form-label"><i class="bi bi-person"></i> Prénom</label>
-                            <input type="text" class="form-control" placeholder="Jean">
+                        <div class="mb-3">
+                            <label for="adresse" class="form-label"><i class="bi bi-geo-alt"></i> Adresse</label>
+                            <textarea class="form-control" id="adresse" formControlName="adresse" rows="2" 
+                                placeholder="Rue, Code postal, Ville"
+                                [ngClass]="{'is-invalid': isFieldInvalid('adresse'), 'is-valid': isFieldValid('adresse')}"></textarea>
+                            @if(isFieldInvalid('adresse')) {
+                                @if (f['adresse']?.errors?.['required']) {
+                                    <div class="text-danger small mt-1">L'adresse est requise.</div>
+                                }
+                            }
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="bi bi-telephone"></i> Téléphone</label>
-                            <input type="tel" class="form-control" placeholder="+221 77 123 45 67">
+
+                        <div class="mb-4">
+                            <label for="antecedents" class="form-label"><i class="bi bi-file-medical"></i> Antécédents Médicaux</label>
+                            <textarea class="form-control" id="antecedents" formControlName="antecedents" rows="4" placeholder="Décrivez vos antécédents médicaux..."></textarea>
                         </div>
-                    </div>
 
-                    <!-- Adresse -->
-                    <div class="mb-3">
-                        <label class="form-label"><i class="bi bi-geo-alt"></i> Adresse</label>
-                        <textarea class="form-control" rows="2" placeholder="Rue, Code postal, Ville"></textarea>
-                    </div>
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary" (click)="onReset()">
+                                <i class="bi bi-x-circle"></i> Annuler
+                            </button>
+                            <button type="submit" class="btn btn-primary" [disabled]="patientForm.invalid">
+                                <i class="bi bi-check-circle"></i> Créer Patient
+                            </button>
+                        </div>
 
-                    <!-- Antécédents Médicaux -->
-                    <div class="mb-4">
-                        <label class="form-label"><i class="bi bi-file-medical"></i> Antécédents Médicaux</label>
-                        <textarea class="form-control" rows="4" placeholder="Décrivez vos antécédents médicaux, allergies, maladies chroniques..."></textarea>
-                    </div>
-
-                    <!-- Boutons -->
-                    <div class="d-flex justify-content-end gap-2">
-                        <button class="btn btn-secondary">
-                            <i class="bi bi-x-circle"></i> Annuler
-                        </button>
-                        <button class="btn btn-primary">
-                            <i class="bi bi-check-circle"></i> Créer Patient
-                        </button>
-                    </div>
-
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- Sidebar Informations -->
+        <!-- Sidebar -->
         <div class="col-lg-4">
             <div class="card border-start border-info border-4">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-info-circle"></i> Informations</h5>
                     <p class="text-muted">Veuillez remplir tous les champs avec les informations correctes du patient.</p>
-                    
                     <p class="fw-bold mb-2">Champs requis:</p>
                     <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success"></i> Numéro Patient
-                        </li>
-                        <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success"></i> Nom
-                        </li>
-                        <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success"></i> Prénom
-                        </li>
-                        <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success"></i> Téléphone
-                        </li>
-                        <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success"></i> Adresse
-                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Numéro Patient</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Nom</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Prénom</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Téléphone</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Adresse</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
