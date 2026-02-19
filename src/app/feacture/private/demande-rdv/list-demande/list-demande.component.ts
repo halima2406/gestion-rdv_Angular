@@ -2,10 +2,10 @@ import { Component, NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DemandeListRV, DemandeListRVResponseModel, DemandeRVFilterModel, SpecialiteMedicale, StatutDemande } from '../../models/demande.model';
 import { CommonModule } from '@angular/common';
-import { MOCK_DEMANDES } from '../../../../mocks/demande.mocks';
-import { DemandeService } from '../service/demande.service';
+import { DemandeMockService } from '../service/demande.mock.service';
 import { OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-demande',
@@ -18,42 +18,59 @@ export class ListDemandeComponent implements OnInit {
 
   //demandesResponse:undefined;
   demandesResponse?:DemandeListRVResponseModel;
+
+  private subscription?:Subscription;
+
   filterDemandes: DemandeRVFilterModel = {
     specialite : '',
     statut: 'En Attente',
   };
 
-  
-
-  constructor(private demandeServive: DemandeService) { 
-   
-  }
+  constructor(private demandeService: DemandeMockService){}
 
   ngOnDestroy(): void {
   if (typeof window !== 'undefined') {
     alert("ListDemandeComponent détruit");
+    }
   }
-}
+
+   
+  private loadDemandes(): void {
+
+    this.subscription=this.demandeService.getDemandeRV(this.filterDemandes).subscribe({
+      next: (response:DemandeListRVResponseModel) => {
+        this.demandesResponse = response;
+      },
+      error: (error) => {
+        console.error("Erreur lors du chargement des demandes :", error);
+      },complete:()=>{
+        console.log("Chargement des demandes terminé.");
+      }
+    });
+  
+  }
 
   ngOnInit(): void {
-    this.LoadDemandes();
+    this.loadDemandes();
   }
 
-  private LoadDemandes(){
-    this.demandesResponse=this.demandeServive.getDemandeRV(this.filterDemandes);
+ 
+  onDestroy(): void {
+    this.subscription?.unsubscribe();
   }
+
 
   onFilterStatutChange(){
-    this.LoadDemandes();
+    this.loadDemandes();
   }
 
   onFilterSpecialiteChange(){
-    this.LoadDemandes();
+    this.loadDemandes();
   }
 
   onPaginate(page:number){
     this.filterDemandes.page=page;
-    this.LoadDemandes();
+    this.loadDemandes();
   }
 
   desactivePrecedent():boolean{
