@@ -51,8 +51,7 @@ export class DemandeMockService implements DemandeServiceInterface {
         pages: pages,
         size: size
       }).pipe(
-        // Simuler un délai de 5 secondes pour imiter une requête réseau
-        delay(5000)
+        delay(3000)
       );
     
   }
