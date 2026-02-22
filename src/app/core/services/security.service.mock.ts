@@ -3,16 +3,22 @@ import { isPlatformBrowser } from '@angular/common';
 import { User, UserLoginRequest, UserLoginResponse } from '../models/user.model';
 import { MOCK_USERS } from '@mocks';
 import { ISecurityService } from './interfaces/security.interface.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SecurityService implements ISecurityService {
+export class SecurityMockService implements ISecurityService {
 
   private readonly TOKEN_KEY = 'token';
   private readonly USER_KEY = 'currentUser';
   private platformId = inject(PLATFORM_ID);
 
+  private currentUserSubject=new BehaviorSubject<UserLoginResponse | null>(null);
+  currentUser$=this.currentUserSubject.asObservable();
+
+  private isAuthenticatedSubject=new BehaviorSubject<boolean>(false);
+ 
   private get isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
@@ -29,6 +35,9 @@ export class SecurityService implements ISecurityService {
         user: user
       };
       this.saveLocalStorage(userLoginResponse);
+
+      this.currentUserSubject.next(userLoginResponse);
+      this.isAuthenticatedSubject.next(true);
       return userLoginResponse;
     }
     return null;
@@ -42,24 +51,11 @@ export class SecurityService implements ISecurityService {
   }
 
   getCurrentUser(): UserLoginResponse | null {
-    if (!this.isBrowser) return null;
-
-    const token = localStorage.getItem(this.TOKEN_KEY);
-    const userJson = localStorage.getItem(this.USER_KEY);
-
-    if (token && userJson) {
-      const user: UserLoginResponse = {
-        token: token,
-        user: JSON.parse(userJson)
-      };
-      return user;
-    }
-    return null;
+    return this.currentUserSubject.getValue();
   }
 
   isAuthenticated(): boolean {
-    if (!this.isBrowser) return false;
-    return localStorage.getItem(this.TOKEN_KEY) !== null;
+    return this.isAuthenticatedSubject.getValue();
   }
 
   logout(): void {

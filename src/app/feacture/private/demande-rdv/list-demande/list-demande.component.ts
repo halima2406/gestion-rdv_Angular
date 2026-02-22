@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Inject, NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DemandeListRV, DemandeListRVResponseModel, DemandeRVFilterModel, SpecialiteMedicale, StatutDemande } from '../../models/demande.model';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { DemandeMockService } from '../service/demande.mock.service';
 import { OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DEMANDE_SERVICE_TOKEN, DemandeServiceInterface } from '../service/interfaces/demande.interface.service';
 
 @Component({
   selector: 'app-list-demande',
@@ -26,7 +27,7 @@ export class ListDemandeComponent implements OnInit {
     statut: 'En Attente',
   };
 
-  constructor(private demandeService: DemandeMockService){}
+  constructor(@Inject(DEMANDE_SERVICE_TOKEN) private demandeService: DemandeServiceInterface){}
 
   ngOnDestroy(): void {
   if (typeof window !== 'undefined') {
