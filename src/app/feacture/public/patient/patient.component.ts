@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PatientRequest } from '../../../core/models/patient.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PatientService } from '../../../core/services/patient.service';
+
 
 @Component({
   selector: 'app-patient',
@@ -24,7 +24,7 @@ export class PatientComponent {
       nom: ['', [Validators.required]],
       prenom: ['', [Validators.required]],
       adresse: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
+      telephone: ['', [Validators.required,Validators.pattern(/^(77|78|76)[0-9]{7}$/)]],
       antecedents: ['']
     });
   }

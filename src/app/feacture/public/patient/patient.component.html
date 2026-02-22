@@ -55,12 +55,15 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="tel" class="form-label"><i class="bi bi-telephone"></i> Téléphone</label>
-                                <input type="tel" class="form-control" id="tel" placeholder="+221 77 123 45 67"
+                                <input type="tel" class="form-control" id="tel" placeholder="77 123 45 67"
                                     formControlName="telephone"
                                     [ngClass]="{'is-invalid': isFieldInvalid('telephone'), 'is-valid': isFieldValid('telephone')}">
                                 @if(isFieldInvalid('telephone')) {
                                     @if (f['telephone']?.errors?.['required']) {
                                         <div class="text-danger small mt-1">Le téléphone est requis.</div>
+                                    }
+                                    @if (f['telephone']?.errors?.['pattern']) {
+                                        <div class="text-danger small mt-1">Le numéro de téléphone ne respecte pas le format</div>
                                     }
                                 }
                             </div>
