@@ -1,0 +1,31 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-pagination',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './pagination.component.html',
+  styleUrl: './pagination.component.css'
+})
+export class PaginationComponent {
+
+  @Input({ required: true }) pages: number[] = [];
+  @Input({ required: true }) currentPage: number = 1;
+
+  @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+
+  onPageChange(page: number): void {
+    if (page >= 1 && page <= this.pages.length) {
+      this.pageChange.emit(page);
+    }
+  }
+  
+  get desactivePrecedent(): boolean {
+    return !(this.currentPage > 1);
+  }
+  
+  get desactiveSuivant(): boolean {
+    return !(this.currentPage < this.pages.length);
+  }
+}

@@ -4,6 +4,7 @@ import { FormDemandeComponent } from "./demande-rdv/form-demande/form-demande.co
 import { ListDemandeComponent } from "./demande-rdv/list-demande/list-demande.component";
 import { PrivateComponent } from "./private.component";
 import { isConnectGuard } from "../../core/guards/is-connect.guard";
+import { demandeResolver } from "./demande-rdv/resolver/demande.resolver";
 
 export const PRIVATE_ROUTES :Routes = [
 
@@ -28,7 +29,11 @@ export const PRIVATE_ROUTES :Routes = [
             },  
             {
                 path: 'list-demande-rdv',
-                component:ListDemandeComponent
+                component:ListDemandeComponent,
+                resolve:{ 
+                    demandes: demandeResolver
+                 } 
+
             }
 
         ]

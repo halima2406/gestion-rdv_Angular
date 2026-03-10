@@ -1,0 +1,18 @@
+<!-- Pagination -->
+<nav class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+        <li class="page-item" [class.disabled]="desactivePrecedent">
+            <a class="page-link page-link-nav" (click)="!desactivePrecedent && onPageChange(currentPage - 1)">Précédent</a>
+        </li>
+       
+        @for (indexPage of pages; track indexPage) {
+            <li class="page-item" [class.active]="indexPage === currentPage">
+                <a class="page-link" (click)="onPageChange(indexPage); $event.preventDefault()" href="#">{{ indexPage }}</a>
+            </li>
+        }
+       
+        <li class="page-item" [class.disabled]="desactiveSuivant">
+            <a class="page-link page-link-nav" (click)="!desactiveSuivant && onPageChange(currentPage + 1)">Suivant</a>
+        </li>
+    </ul>
+ </nav>
